@@ -705,11 +705,16 @@ require('lazy').setup({
                       },
                       url = 'http://json.schemastore.org/stylelintrc.json',
                     },
+                    {
+                      fileMatch = {
+                        'deno.json',
+                      },
+                      url = 'https://deno.land/x/deno/cli/schemas/config-file.v1.json',
+                    },
                   },
                 },
               }
             end
-
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
