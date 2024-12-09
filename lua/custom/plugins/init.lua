@@ -27,4 +27,5 @@ return {
   { 'numToStr/Comment.nvim' },
   { 'mfussenegger/nvim-jdtls' },
   { 'norcalli/nvim-colorizer.lua' },
+  { 'Issafalcon/lsp-overloads.nvim' },
 }

@@ -50,7 +50,7 @@ Kickstart Guide:
       - :
       - Tutor
       - <enter key>
-
+ 
     (If you already know the Neovim basics, you can skip this step.)
 
   Once you've completed that, you can continue working through **AND READING** the rest
@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- Add codefences for denols
 vim.g.markdown_fenced_languages = {
@@ -593,6 +593,10 @@ require('lazy').setup({
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+          -- Add the functionnality for overloads
+          if client.server_capabilities.signatureHelpProvider then
+            require('lsp-overloads').setup(client, {})
+          end
         end,
       })
 
@@ -837,7 +841,6 @@ require('lazy').setup({
           ['<tab>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
           ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -905,7 +908,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-storm'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -929,11 +932,14 @@ require('lazy').setup({
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Parent
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      -- Add highlighting in words super useful
+      require('mini.cursorword').setup { delay = 100 }
+      require('mini.indentscope').setup()
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -1022,7 +1028,6 @@ require('lazy').setup({
     },
   },
 })
-require 'onlinemax.dap'
-require 'onlinemax.general'
+require 'onlinemax'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
