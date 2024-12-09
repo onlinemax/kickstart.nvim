@@ -18,4 +18,13 @@ return {
     cmd = { 'LiveServerStart', 'LiveServerStop' },
     config = true,
   },
+  {
+    'olrtg/nvim-emmet',
+    config = function()
+      vim.keymap.set({ 'n', 'v' }, '<leader>xe', require('nvim-emmet').wrap_with_abbreviation, { desc = 'Emmet Wrap with Abbreveviation ' })
+    end,
+  },
+  { 'numToStr/Comment.nvim' },
+  { 'mfussenegger/nvim-jdtls' },
+  { 'norcalli/nvim-colorizer.lua' },
 }
