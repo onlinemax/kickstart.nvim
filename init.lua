@@ -436,7 +436,7 @@ require('lazy').setup({
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { dnsc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
@@ -632,6 +632,7 @@ require('lazy').setup({
           root_dir = require('lspconfig').util.root_pattern 'package.json',
           single_file_support = false,
         },
+        jdtls = {},
         --
         denols = {
           on_attach = on_attach,
