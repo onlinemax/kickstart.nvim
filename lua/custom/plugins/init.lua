@@ -28,4 +28,10 @@ return {
   { 'nvim-java/nvim-java' },
   { 'norcalli/nvim-colorizer.lua' },
   { 'Issafalcon/lsp-overloads.nvim' },
+  {
+    'jalvesaq/dict.nvim',
+    init = function()
+      vim.keymap.set('n', '<Leader>dd', '<Cmd>lua require("dict").lookup()<CR>', { desc = '[D]ocument [D]efinition' })
+    end,
+  },
 }
