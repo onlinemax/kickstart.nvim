@@ -34,4 +34,8 @@ return {
       vim.keymap.set('n', '<Leader>dd', '<Cmd>lua require("dict").lookup()<CR>', { desc = '[D]ocument [D]efinition' })
     end,
   },
+  {
+    'christoomey/vim-tmux-navigator',
+    lazy = false,
+  },
 }
