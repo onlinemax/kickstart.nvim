@@ -14,7 +14,7 @@
 ========         |'-..................-'|   |____o|          ========
 ========         `"")----------------(""`   ___________      ========
 ========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
+e=======       /:::========|  |==hjkl==:::\  \ required \    ========
 ========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
 ========                                                     ========
 =====================================================================
@@ -469,7 +469,7 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      { 'williamboman/mason.nvim', opts = {} }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -480,7 +480,7 @@ require('lazy').setup({
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
-    config = function()
+    config = function(_, opts)
       -- Brief aside: **What is LSP?**
       --
       -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -516,7 +516,7 @@ require('lazy').setup({
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
           --
-          -- In this case, we create a function that lets us more easily define mappings specific
+          -- In this case, we create a functions that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
@@ -524,7 +524,7 @@ require('lazy').setup({
           end
 
           -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
+          --  This is where a variable was first declared, or where a --functions is defined, etc.
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
@@ -653,6 +653,7 @@ require('lazy').setup({
           on_attach = on_attach,
           root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
         },
+        jsonls = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -675,7 +676,6 @@ require('lazy').setup({
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -686,24 +686,26 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = vim.fn.remove(vim.deepcopy(ensure_installed), 0, table.getn(ensure_installed) - 2),
+        automatic_installation = false,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
             if server_name == 'jsonls' then
               server.settings = {
                 json = {
-                  -- Schemas https://www.schemastore.org
+                  -- schemas https://www.schemastore.org
                   schemas = {
                     {
-                      fileMatch = { 'package.json' },
+                      filematch = { 'package.json' },
                       url = 'https://json.schemastore.org/package.json',
                     },
                     {
-                      fileMatch = { 'tsconfig*.json' },
+                      filematch = { 'tsconfig*.json' },
                       url = 'https://json.schemastore.org/tsconfig.json',
                     },
                     {
-                      fileMatch = {
+                      filematch = {
                         '.prettierrc',
                         '.prettierrc.json',
                         'prettier.config.json',
@@ -711,23 +713,23 @@ require('lazy').setup({
                       url = 'https://json.schemastore.org/prettierrc.json',
                     },
                     {
-                      fileMatch = { '.eslintrc', '.eslintrc.json' },
+                      filematch = { '.eslintrc', '.eslintrc.json' },
                       url = 'https://json.schemastore.org/eslintrc.json',
                     },
                     {
-                      fileMatch = { '.babelrc', '.babelrc.json', 'babel.config.json' },
+                      filematch = { '.babelrc', '.babelrc.json', 'babel.config.json' },
                       url = 'https://json.schemastore.org/babelrc.json',
                     },
                     {
-                      fileMatch = { 'lerna.json' },
+                      filematch = { 'lerna.json' },
                       url = 'https://json.schemastore.org/lerna.json',
                     },
                     {
-                      fileMatch = { 'now.json', 'vercel.json' },
+                      filematch = { 'now.json', 'vercel.json' },
                       url = 'https://json.schemastore.org/now.json',
                     },
                     {
-                      fileMatch = {
+                      filematch = {
                         '.stylelintrc',
                         '.stylelintrc.json',
                         'stylelint.config.json',
@@ -735,18 +737,18 @@ require('lazy').setup({
                       url = 'http://json.schemastore.org/stylelintrc.json',
                     },
                     {
-                      fileMatch = {
+                      filematch = {
                         'deno.json',
                       },
-                      url = 'https://deno.land/x/deno/cli/schemas/config-file.v1.json',
+                      url = 'https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/config-file.v1.json',
                     },
                   },
                 },
               }
             end
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
+            -- this handles overriding only values explicitly passed
+            -- by the server configuration above. useful when disabling
+            -- certain features of an lsp (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
@@ -981,7 +983,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'rust', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'rust', 'html', 'lua', 'javascript', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
