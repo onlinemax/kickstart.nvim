@@ -25,7 +25,14 @@ return {
     end,
   },
   { 'numToStr/Comment.nvim' },
-  { 'nvim-java/nvim-java' },
+  {
+    'mfussenegger/nvim-jdtls',
+    dependencies = { 'mfussenegger/nvim-dap' },
+    ft = 'java',
+    config = function()
+      require('onlinemax.jdtls').setup()
+    end,
+  },
   { 'norcalli/nvim-colorizer.lua' },
   { 'Issafalcon/lsp-overloads.nvim' },
   {
@@ -44,5 +51,18 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     dependencies = { 'kevinhwang91/promise-async' },
+  },
+
+  {
+    'chomosuke/typst-preview.nvim',
+    lazy = false, -- or ft = 'typst'
+    version = '1.*',
+    opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+  },
+  {
+    'edluffy/hologram.nvim',
+    opts = {
+      auto_display = true,
+    },
   },
 }
