@@ -34,3 +34,6 @@ vim.o.foldenable = true
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all the Folds' })
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all the folds' })
+
+vim.api.nvim_set_keymap('v', '<M-k>', '[egv', {})
+vim.api.nvim_set_keymap('v', '<M-j>', ']egv', {})

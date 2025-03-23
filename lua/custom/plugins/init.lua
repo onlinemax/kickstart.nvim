@@ -65,4 +65,24 @@ return {
       auto_display = true,
     },
   },
+  {
+    'tummetott/unimpaired.nvim',
+    opts = {
+      -- add options here if you wish to override the default settings
+
+      -- Change the behavior of ALT-K and ALT-J to move line up and down in normal mode
+      keymaps = {
+        exchange_above = {
+          mapping = '<M-k>',
+          description = 'Exchange line with [count] lines above',
+          dot_repeat = true,
+        },
+        exchange_below = {
+          mapping = '<M-j>',
+          description = 'Exchange line with [count] lines below',
+          dot_repeat = true,
+        },
+      },
+    },
+  },
 }
