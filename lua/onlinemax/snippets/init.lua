@@ -1,0 +1,2 @@
+
+require 'onlinemax.snippets.latex'

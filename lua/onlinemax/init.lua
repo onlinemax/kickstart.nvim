@@ -3,3 +3,7 @@ require 'onlinemax.dap'
 require 'onlinemax.colorizer'
 require 'onlinemax.jdtls'
 require 'onlinemax.typst'
+require 'onlinemax.luasnip'
+require 'onlinemax.snippets'
+
+vim.api.nvim_create_autocmd({ 'FIleType' }, { pattern = 'tex', group = optional_group, command = 'TSBufDisable highlight' })

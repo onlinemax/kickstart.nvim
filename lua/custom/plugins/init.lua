@@ -14,6 +14,7 @@ return {
   },
   {
     'barrett-ruth/live-server.nvim',
+    ft = 'html',
     build = 'pnpm add -g live-server',
     cmd = { 'LiveServerStart', 'LiveServerStop' },
     config = true,
@@ -55,7 +56,7 @@ return {
 
   {
     'chomosuke/typst-preview.nvim',
-    lazy = false, -- or ft = 'typst'
+    ft = 'typst',
     version = '1.*',
     opts = {}, -- lazy.nvim will implicitly calls `setup {}`
   },
@@ -86,5 +87,32 @@ return {
       },
     },
   },
-  { 'brianhuster/autosave.nvim' },
+  {
+    'brianhuster/autosave.nvim',
+    ft = 'tex',
+  },
+  {
+    'lervag/vimtex',
+    dependencies = { 'micangl/cmp-vimtex' },
+    ft = 'tex',
+    lazy = true, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_compiler_method = 'latexmk'
+      vim.g.tex_flavor = 'latex'
+      vim.g.tex_conceal = 'abdmg'
+      vim.g.vimtex_quickfix_mode = 0
+      vim.opt.conceallevel = 1
+    end,
+  },
+  {
+    'mireq/luasnip-snippets',
+    dependencies = { 'L3MON4D3/LuaSnip' },
+    init = function()
+      -- Mandatory setup function
+      require('luasnip_snippets.common.snip_utils').setup()
+    end,
+  },
 }
