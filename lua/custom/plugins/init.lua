@@ -62,6 +62,7 @@ return {
   },
   {
     'edluffy/hologram.nvim',
+    lazy = true,
     opts = {
       auto_display = true,
     },
