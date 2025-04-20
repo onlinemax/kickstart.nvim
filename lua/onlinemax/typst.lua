@@ -1,22 +1,23 @@
-local handlers = {}
+local pids = {}
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*.typ',
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
     local name = vim.api.nvim_buf_get_name(buf)
     local cwd = vim.fn.getcwd(vim.api.nvim_get_current_win())
-    local executable = '~/Documents/Programs/C/command/command'
-    handlers.typst = io.popen(executable .. ' typst watch -f pdf ' .. name .. ' ' .. cwd .. '/tmp.pdf  > /dev/null 2>&1 &', 'r')
-    local pid = handlers.typst:read '*n'
-    print(pid)
-    handlers.zathura = io.popen(executable .. ' zathura ' .. cwd .. '/tmp.pdf > /dev/null 2>&1 &', 'r')
+    local command = '/home/max/Documents/Programs/Bash/latest.sh'
+    os.execute(' typst watch -f pdf ' .. name .. ' ' .. cwd .. '/tmp.pdf  > /dev/null 2>&1 &')
+    os.execute('zathura ' .. cwd .. '/tmp.pdf > /dev/null 2>&1 &')
+    pids.typst = io.popen(command .. ' typst'):read '*n'
+    pids.zathura = io.popen(command .. ' zathura'):read '*n'
   end,
 })
 
-vim.api.nvim_create_autocmd('BufDelete', {
+vim.api.nvim_create_autocmd('BufUnload', {
   pattern = '*.typ',
   callback = function()
-    handlers.typst:close()
-    handlers.zathura:close()
+    vim.print 'allo'
+    os.execute('kill ' .. pids.typst)
+    os.execute('kill ' .. pids.zathura)
   end,
 })
