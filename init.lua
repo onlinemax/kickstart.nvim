@@ -662,14 +662,12 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {
-          on_attach = on_attach,
-          root_dir = require('lspconfig').util.root_pattern 'package.json',
-          single_file_support = false,
+          -- root_dir = require('lspconfig').util.root_pattern 'package.json',
+          single_file_support = true,
         },
         jdtls = {},
         --
         denols = {
-          on_attach = on_attach,
           root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
         },
         jsonls = {},
