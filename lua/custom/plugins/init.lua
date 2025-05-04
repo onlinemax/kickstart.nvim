@@ -116,16 +116,6 @@ return {
       require('luasnip_snippets.common.snip_utils').setup()
     end,
   },
-  {
-    'mxsdev/nvim-dap-vscode-js',
-    requires = { 'mfussenegger/nvim-dap' },
-    opts = {
-      debugger_path = vim.fn.stdpath 'data' .. '/lazy/vscode-js-debug',
-      -- which adapters to register in nvim-dap
-      adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
-    },
-  },
-
   { 'carlosrocha/chrome-remote.nvim' },
   {
     'microsoft/vscode-js-debug',

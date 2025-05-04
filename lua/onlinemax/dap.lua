@@ -5,6 +5,13 @@ dap.adapters.lldb = {
   name = 'lldb',
 }
 
+dap.adapters['pwa-chrome'] = {
+  type = 'executable',
+  port = 9992,
+  host = 'localhost',
+  command = 'node',
+  args = { vim.fn.expand '~/.local/share/nvim/lazy/vscode-js-debug/out/src/vsDebugServer.js', '9992' },
+}
 for _, language in ipairs { 'typescript', 'javascript' } do
   require('dap').configurations[language] = {
     {
@@ -20,6 +27,12 @@ for _, language in ipairs { 'typescript', 'javascript' } do
       name = 'Attach',
       processId = require('dap.utils').pick_process,
       cwd = '${workspaceFolder}',
+    },
+    {
+      type = 'pwa-chrome',
+      request = 'attach',
+      name = 'Attach to Chrome',
+      port = 9222,
     },
   }
 end

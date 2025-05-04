@@ -37,3 +37,6 @@ vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all the 
 
 vim.api.nvim_set_keymap('v', '<M-k>', '[egv', {})
 vim.api.nvim_set_keymap('v', '<M-j>', ']egv', {})
+
+vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
+vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
