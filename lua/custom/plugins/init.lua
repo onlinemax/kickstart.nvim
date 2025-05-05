@@ -108,14 +108,6 @@ return {
       vim.opt.conceallevel = 1
     end,
   },
-  {
-    'mireq/luasnip-snippets',
-    dependencies = { 'L3MON4D3/LuaSnip' },
-    init = function()
-      -- Mandatory setup function
-      require('luasnip_snippets.common.snip_utils').setup()
-    end,
-  },
   { 'carlosrocha/chrome-remote.nvim' },
   {
     'microsoft/vscode-js-debug',
