@@ -603,9 +603,9 @@ require('lazy').setup({
             end, '[T]oggle Inlay [H]ints')
           end
           -- Add the functionnality for overloads
-          if client.server_capabilities.signatureHelpProvider then
-            require('lsp-overloads').setup(client, {})
-          end
+          -- if client.server_capabilities.signatureHelpProvider then
+          --   require('lsp-overloads').setup(client, {})
+          -- end
         end,
       })
 
@@ -929,6 +929,7 @@ require('lazy').setup({
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'vimtex' },
+          { name = 'nvim_lsp_signature_help' },
         },
       }
     end,
