@@ -35,7 +35,7 @@ return {
     end,
   },
   { 'norcalli/nvim-colorizer.lua' },
-  -- { 'Issafalcon/lsp-overloads.nvim' },
+  { 'Issafalcon/lsp-overloads.nvim' },
   {
     'jalvesaq/dict.nvim',
     init = function()

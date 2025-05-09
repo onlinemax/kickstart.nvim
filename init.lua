@@ -603,9 +603,6 @@ require('lazy').setup({
             end, '[T]oggle Inlay [H]ints')
           end
           -- Add the functionnality for overloads
-          -- if client.server_capabilities.signatureHelpProvider then
-          --   require('lsp-overloads').setup(client, {})
-          -- end
         end,
       })
 
@@ -645,6 +642,23 @@ require('lazy').setup({
         clangd = {},
         gopls = {},
         pyright = {},
+
+        svelte = {
+          on_attach = function(client, bufnr)
+            if client.name == 'svelte' then
+              vim.api.nvim_create_autocmd('BufWritePost', {
+                pattern = { '*.js', '*.ts' },
+                group = vim.api.nvim_create_augroup('svelte_ondidchangetsorjsfile', { clear = true }),
+                callback = function(ctx)
+                  -- Here use ctx.match instead of ctx.file
+                  client.notify('$/onDidChangeTsOrJsFile', { uri = ctx.match })
+                end,
+              })
+            end
+
+            -- attach keymaps if needed
+          end,
+        },
 
         rust_analyzer = {
           settings = {
