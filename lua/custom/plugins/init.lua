@@ -113,4 +113,5 @@ return {
     'microsoft/vscode-js-debug',
     build = ':!npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
   },
+  { 'projekt0n/github-nvim-theme', name = 'github-theme' },
 }
