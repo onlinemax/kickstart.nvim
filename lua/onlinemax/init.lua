@@ -1,6 +1,5 @@
 require 'onlinemax.general'
 require 'onlinemax.dap'
-require 'onlinemax.colorizer'
 require 'onlinemax.jdtls'
 require 'onlinemax.typst'
 require 'onlinemax.luasnip'

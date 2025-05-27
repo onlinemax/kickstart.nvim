@@ -34,7 +34,14 @@ return {
       require('onlinemax.jdtls').setup()
     end,
   },
-  { 'norcalli/nvim-colorizer.lua' },
+  {
+    'norcalli/nvim-colorizer.lua',
+    opts = {
+      'css',
+      'javascript',
+      css = { css_fn = true, css = true },
+    },
+  },
   { 'Issafalcon/lsp-overloads.nvim' },
   {
     'jalvesaq/dict.nvim',
