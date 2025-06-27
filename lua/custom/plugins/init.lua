@@ -121,4 +121,20 @@ return {
     build = ':!npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
   },
   { 'projekt0n/github-nvim-theme', name = 'github-theme' },
+
+  {
+    'oskarrrrrrr/symbols.nvim',
+    version = '*',
+    config = function()
+      local r = require 'symbols.recipes'
+      require('symbols').setup(r.DefaultFilters, r.AsciiSymbols, {
+        sidebar = {
+          -- custom settings here
+          -- e.g. hide_cursor = false
+        },
+      })
+      vim.keymap.set('n', ',s', '<cmd>Symbols<CR>')
+      vim.keymap.set('n', ',S', '<cmd>SymbolsClose<CR>')
+    end,
+  },
 }
